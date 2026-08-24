@@ -1,0 +1,8 @@
+.build/
+build/
+iOS/device-build/
+iOS/device-unsigned-build/
+DerivedData/
+*.noindex/
+.DS_Store
+*.xcuserstate

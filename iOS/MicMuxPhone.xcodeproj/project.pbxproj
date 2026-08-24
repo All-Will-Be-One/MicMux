@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		24DE7E565D407F1255C0CA2F /* PhoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9267BC8A82407B12F0D3B5 /* PhoneModel.swift */; };
+		2DAC75CEA960AC8BFD547508 /* MicMuxPhoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3019FAA83E5FD852725C7B /* MicMuxPhoneApp.swift */; };
+		5CF80027DBA33E2B3786E244 /* PhoneAudioCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 684EE116DD5F26D09E064A64 /* PhoneAudioCapture.swift */; };
+		6771F2638ED22C7A207BC1EE /* PhoneIrohClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A167117B28070978610713 /* PhoneIrohClient.swift */; };
+		82E6ACB7A8376A51F19AB118 /* IrohLib in Frameworks */ = {isa = PBXBuildFile; productRef = 7BEC97C9B880B53B8F6709EF /* IrohLib */; };
+		85D2DA5C65B8E6A01001E719 /* PhoneContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577780672E08006982AD2218 /* PhoneContentView.swift */; };
+		959A9CA4B4640C941DCAA390 /* MicMuxWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC03CE49803FBD755DACF17 /* MicMuxWire.swift */; };
+		A37FF8D0E7410FC0620B23CD /* PairingScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D966CDE2BFDB3B93174AFCD6 /* PairingScannerView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2A3019FAA83E5FD852725C7B /* MicMuxPhoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicMuxPhoneApp.swift; sourceTree = "<group>"; };
+		577780672E08006982AD2218 /* PhoneContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneContentView.swift; sourceTree = "<group>"; };
+		684EE116DD5F26D09E064A64 /* PhoneAudioCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneAudioCapture.swift; sourceTree = "<group>"; };
+		6AC03CE49803FBD755DACF17 /* MicMuxWire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicMuxWire.swift; sourceTree = "<group>"; };
+		6B754EF679E789FEFB3A8D2F /* MicMuxPhone.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MicMuxPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97C55A2B4661E59A403B8129 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B9A167117B28070978610713 /* PhoneIrohClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneIrohClient.swift; sourceTree = "<group>"; };
+		D966CDE2BFDB3B93174AFCD6 /* PairingScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingScannerView.swift; sourceTree = "<group>"; };
+		ED9267BC8A82407B12F0D3B5 /* PhoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		167CE0E6F33C66C6E907E01F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E6ACB7A8376A51F19AB118 /* IrohLib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1316DD7E09DDD5E8F1F02513 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				6AC03CE49803FBD755DACF17 /* MicMuxWire.swift */,
+			);
+			name = Shared;
+			path = ../Shared;
+			sourceTree = "<group>";
+		};
+		4DCF801B1F033F56F99539AD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				1316DD7E09DDD5E8F1F02513 /* Shared */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		764AFC3D9A2FCBE867BC7981 /* MicMuxPhone */ = {
+			isa = PBXGroup;
+			children = (
+				97C55A2B4661E59A403B8129 /* Info.plist */,
+				2A3019FAA83E5FD852725C7B /* MicMuxPhoneApp.swift */,
+				D966CDE2BFDB3B93174AFCD6 /* PairingScannerView.swift */,
+				684EE116DD5F26D09E064A64 /* PhoneAudioCapture.swift */,
+				577780672E08006982AD2218 /* PhoneContentView.swift */,
+				B9A167117B28070978610713 /* PhoneIrohClient.swift */,
+				ED9267BC8A82407B12F0D3B5 /* PhoneModel.swift */,
+			);
+			path = MicMuxPhone;
+			sourceTree = "<group>";
+		};
+		87746D856A2C669B104142C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6B754EF679E789FEFB3A8D2F /* MicMuxPhone.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8865CAEF89B08DE4C525732F = {
+			isa = PBXGroup;
+			children = (
+				764AFC3D9A2FCBE867BC7981 /* MicMuxPhone */,
+				4DCF801B1F033F56F99539AD /* Shared */,
+				87746D856A2C669B104142C7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BB643F4F789E2C1AA97A7428 /* MicMuxPhone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1302A49EDF2EDCD9432698D /* Build configuration list for PBXNativeTarget "MicMuxPhone" */;
+			buildPhases = (
+				C7CF78D21ECBD77AB7885522 /* Sources */,
+				167CE0E6F33C66C6E907E01F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MicMuxPhone;
+			packageProductDependencies = (
+				7BEC97C9B880B53B8F6709EF /* IrohLib */,
+			);
+			productName = MicMuxPhone;
+			productReference = 6B754EF679E789FEFB3A8D2F /* MicMuxPhone.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F3A8699EF065480E5725CB66 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					BB643F4F789E2C1AA97A7428 = {
+						DevelopmentTeam = R4JXK6ZVPU;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 0E2EE74844E16E0D4E0222A2 /* Build configuration list for PBXProject "MicMuxPhone" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 8865CAEF89B08DE4C525732F;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EF4333588E6C41585795DDC2 /* XCRemoteSwiftPackageReference "iroh-ffi" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 87746D856A2C669B104142C7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BB643F4F789E2C1AA97A7428 /* MicMuxPhone */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C7CF78D21ECBD77AB7885522 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DAC75CEA960AC8BFD547508 /* MicMuxPhoneApp.swift in Sources */,
+				959A9CA4B4640C941DCAA390 /* MicMuxWire.swift in Sources */,
+				A37FF8D0E7410FC0620B23CD /* PairingScannerView.swift in Sources */,
+				5CF80027DBA33E2B3786E244 /* PhoneAudioCapture.swift in Sources */,
+				85D2DA5C65B8E6A01001E719 /* PhoneContentView.swift in Sources */,
+				6771F2638ED22C7A207BC1EE /* PhoneIrohClient.swift in Sources */,
+				24DE7E565D407F1255C0CA2F /* PhoneModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		19C2B0F118EB8ED8B3CB0D44 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		9DFD0C365F4D3406C41E442A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C3512C6446861728EB131645 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4JXK6ZVPU;
+				INFOPLIST_FILE = MicMuxPhone/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = audio.micmux.phone;
+				PRODUCT_NAME = "MicMux Phone";
+				SDKROOT = iphoneos;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F299D1A1A1D1AEB4E39A9A84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R4JXK6ZVPU;
+				INFOPLIST_FILE = MicMuxPhone/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = audio.micmux.phone;
+				PRODUCT_NAME = "MicMux Phone";
+				SDKROOT = iphoneos;
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E2EE74844E16E0D4E0222A2 /* Build configuration list for PBXProject "MicMuxPhone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DFD0C365F4D3406C41E442A /* Debug */,
+				19C2B0F118EB8ED8B3CB0D44 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F1302A49EDF2EDCD9432698D /* Build configuration list for PBXNativeTarget "MicMuxPhone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3512C6446861728EB131645 /* Debug */,
+				F299D1A1A1D1AEB4E39A9A84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EF4333588E6C41585795DDC2 /* XCRemoteSwiftPackageReference "iroh-ffi" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/n0-computer/iroh-ffi.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7BEC97C9B880B53B8F6709EF /* IrohLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EF4333588E6C41585795DDC2 /* XCRemoteSwiftPackageReference "iroh-ffi" */;
+			productName = IrohLib;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F3A8699EF065480E5725CB66 /* Project object */;
+}

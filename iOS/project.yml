@@ -1,0 +1,60 @@
+name: MicMuxPhone
+options:
+  bundleIdPrefix: audio.micmux
+  deploymentTarget:
+    iOS: "17.5"
+  xcodeVersion: "26.0"
+packages:
+  IrohLib:
+    url: https://github.com/n0-computer/iroh-ffi.git
+    exactVersion: 1.1.0
+targets:
+  MicMuxPhone:
+    type: application
+    platform: iOS
+    sources:
+      - path: MicMuxPhone
+      - path: ../Shared
+        group: Shared
+    dependencies:
+      - package: IrohLib
+        product: IrohLib
+    info:
+      path: MicMuxPhone/Info.plist
+      properties:
+        CFBundleDisplayName: MicMux Phone
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleURLTypes:
+          - CFBundleTypeRole: Editor
+            CFBundleURLName: audio.micmux.pairing
+            CFBundleURLSchemes:
+              - micmux
+        NSCameraUsageDescription: MicMux scans the pairing code shown by MicMux on your Mac.
+        NSLocalNetworkUsageDescription: MicMux sends live microphone audio directly to your paired Mac.
+        NSMicrophoneUsageDescription: MicMux streams your selected iPhone, AirPods, or headset microphone to your paired Mac.
+        UIBackgroundModes:
+          - audio
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: audio.micmux.phone
+        PRODUCT_NAME: MicMux Phone
+        DEVELOPMENT_TEAM: R4JXK6ZVPU
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.2.0
+        SWIFT_VERSION: 5.0
+        SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
+        TARGETED_DEVICE_FAMILY: 1
+schemes:
+  MicMuxPhone:
+    build:
+      targets:
+        MicMuxPhone: all
+    run:
+      config: Debug
+    archive:
+      config: Release
