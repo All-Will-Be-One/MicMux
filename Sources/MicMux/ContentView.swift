@@ -49,7 +49,7 @@ struct ContentView: View {
       .pickerStyle(.segmented)
       .frame(width: 240)
 
-      Button(model.running ? "Stop" : "Start") {
+      Button(model.onDemandEnabled ? "Disable on-demand" : (model.running ? "Stop" : "Start")) {
         model.toggleRunning()
       }
       .buttonStyle(.borderedProminent)
@@ -272,6 +272,15 @@ struct ContentView: View {
   private var outputSection: some View {
     VStack(alignment: .leading, spacing: 10) {
       Text("Output").font(.headline)
+      Toggle(
+        "On-demand capture",
+        isOn: Binding(
+          get: { model.onDemandEnabled }, set: { model.setOnDemandEnabled($0) }))
+      Text(model.demandStatus).font(.caption).foregroundStyle(.secondary)
+      Text(
+        "Start when an app uses the virtual output as its microphone; stop shortly after it finishes."
+      )
+      .font(.caption).foregroundStyle(.secondary)
       HStack(spacing: 12) {
         Image(systemName: "arrow.right.circle.fill").foregroundStyle(.green)
         Picker(

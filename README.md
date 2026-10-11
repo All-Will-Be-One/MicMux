@@ -132,3 +132,30 @@ iPhone route ─▶ PCM16 ─▶ iroh QUIC ─┘                               
                                                                             │
 system playback ─▶ separate loopback reference ─────────────────────────────┘
 ```
+
+## On-demand capture
+
+Enable **On-demand capture** under Output (or in the menu bar), and select BlackHole
+as both the MicMux output and the receiving application's microphone. MicMux watches
+Core Audio process input activity without opening the microphones. An external input
+consumer starts capture; when the last consumer ends, capture stops after roughly
+1–2 seconds. Silence within a session does not stop capture. MicMux's own process
+is excluded. The selected virtual device must have both input and output channels.
+
+Disable on-demand capture to stop and return to manual Start/Stop. The on-demand
+choice persists across launches; it is off by default. New aggregate sources default
+to disabled to avoid capturing temporary HAL routes. Monitoring remains opt-in.
+
+Core Audio notifications drive wakeup, with one-second reconciliation as a fallback.
+Hardware startup can delay the first syllable; verify with the actual dictation app.
+Applications that hold their input open between sessions will keep capture running.
+Phone-side streaming is still controlled on the phone. This mode tracks input stream
+usage, not whether an app is in the foreground or currently recognizes speech. The
+microphone indicator may briefly remain visible after Core Audio releases the inputs.
+
+On Command Line Tools-only Macs, run the capture-free demand checks with:
+
+```sh
+swiftc -warnings-as-errors Sources/MicMux/AudioDemandMonitor.swift Tests/Standalone/AudioDemandChecks.swift -o /tmp/micmux-demand-checks
+/tmp/micmux-demand-checks
+```

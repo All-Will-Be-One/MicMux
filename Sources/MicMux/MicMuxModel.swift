@@ -1,4 +1,5 @@
 import AVFoundation
+import CoreAudio
 import Foundation
 
 struct SourcePresentation: Identifiable, Equatable {
@@ -34,6 +35,7 @@ struct RemoteSourcePresentation: Identifiable, Equatable {
 @MainActor
 final class MicMuxModel: ObservableObject {
   private enum PreferenceKey {
+    static let onDemandEnabled = "capture.onDemandEnabled"
     static let selectedOutputID = "routing.selectedOutputID"
     static let echoReferenceID = "routing.echoReferenceID"
     static let echoDelayMilliseconds = "routing.echoDelayMilliseconds"
@@ -58,6 +60,15 @@ final class MicMuxModel: ObservableObject {
   @Published private(set) var activeSourceID: String?
   @Published private(set) var running = false
   @Published private(set) var status = "Ready"
+
+  @Published private(set) var onDemandEnabled = false
+  @Published private(set) var demandStatus = "Manual capture"
+  private let demandMonitor = AudioDemandMonitor()
+  private var demandProcesses: [AudioDemandMonitor.Process] = []
+  private var demandError: String?
+  private var demandGate = AudioDemandGate()
+  private var permissionRequestID = UUID()
+  private var permissionPending = false
 
   private let monitor = AudioDeviceMonitor()
   private let remoteServer = RemoteAudioServer()
@@ -93,9 +104,21 @@ final class MicMuxModel: ObservableObject {
     }
     remoteServer.onStatus = { [weak self] value in self?.phoneReceiverStatus = value }
     remoteServer.start()
+    onDemandEnabled = preferences.bool(forKey: PreferenceKey.onDemandEnabled)
+    demandMonitor.onChange = { [weak self] processes, error in
+      self?.demandProcesses = processes
+      self?.demandError = error
+      self?.reconcileDemand()
+    }
+    if onDemandEnabled { demandMonitor.start() }
   }
 
   func toggleRunning() {
+    // Explicit Start/Stop leaves automatic mode, so Stop can never immediately restart.
+    if onDemandEnabled {
+      setOnDemandEnabled(false)
+      return
+    }
     if running {
       stop()
     } else if sources.contains(where: { $0.enabled }) || !echoReferenceID.isEmpty {
@@ -106,6 +129,8 @@ final class MicMuxModel: ObservableObject {
   }
 
   func stop() {
+    permissionRequestID = UUID()
+    permissionPending = false
     coordinator?.stop()
     coordinator = nil
     remoteSampleSink.setCoordinator(nil)
@@ -121,6 +146,60 @@ final class MicMuxModel: ObservableObject {
       remoteSources[index].healthy = false
       remoteSources[index].voiceActive = false
       remoteSources[index].waveform = [Float](repeating: 0, count: 100)
+    }
+  }
+
+  func setOnDemandEnabled(_ enabled: Bool) {
+    stop()
+    onDemandEnabled = enabled
+    preferences.set(enabled, forKey: PreferenceKey.onDemandEnabled)
+    demandGate = AudioDemandGate()
+    demandProcesses = []
+    demandError = nil
+    if enabled {
+      demandMonitor.start()
+      reconcileDemand()
+    } else {
+      demandMonitor.stop()
+      demandStatus = "Manual capture"
+    }
+  }
+
+  private var demandConsumers: [AudioDemandMonitor.Process] {
+    let output = outputs.first { $0.id == selectedOutputID && $0.isVirtual && $0.hasInput }
+    return AudioDemandMonitor.consumers(
+      demandProcesses, device: output?.objectID,
+      ownPID: UInt32(ProcessInfo.processInfo.processIdentifier))
+  }
+
+  private func reconcileDemand() {
+    guard onDemandEnabled else { return }
+    let validOutput = outputs.contains { $0.id == selectedOutputID && $0.isVirtual && $0.hasInput }
+    let consumers = demandConsumers
+    let demanded = validOutput && !consumers.isEmpty
+    if !validOutput {
+      demandStatus = "Choose BlackHole or another virtual output for on-demand capture"
+    } else if demanded {
+      let names = Set(consumers.map { $0.bundleID.isEmpty ? "Audio app" : $0.bundleID }).sorted()
+      demandStatus = "Requested by: " + names.joined(separator: ", ")
+    } else {
+      demandStatus =
+        demandError ?? "Waiting for an app to use the selected output as its microphone"
+    }
+    if !demanded && permissionPending {
+      permissionRequestID = UUID()
+      permissionPending = false
+    }
+    switch demandGate.update(
+      enabled: true, demanded: demanded, running: running,
+      now: ProcessInfo.processInfo.systemUptime)
+    {
+    case .start:
+      if !permissionPending { requestPermissionAndStart() }
+    case .stop:
+      stop()
+    case .none:
+      break
     }
   }
 
@@ -171,7 +250,13 @@ final class MicMuxModel: ObservableObject {
       status = "Disabled monitoring because its device became the MicMux output."
     }
     persistRoutingPreferences()
-    restartIfRunning()
+    if onDemandEnabled {
+      stop()
+      demandGate = AudioDemandGate()
+      reconcileDemand()
+    } else {
+      restartIfRunning()
+    }
   }
 
   func setEchoReference(_ id: String) {
@@ -244,9 +329,18 @@ final class MicMuxModel: ObservableObject {
       start()
     case .notDetermined:
       status = "Waiting for microphone permission…"
+      permissionPending = true
+      let requestID = UUID()
+      permissionRequestID = requestID
       AVCaptureDevice.requestAccess(for: .audio) { [weak self] granted in
         Task { @MainActor in
-          if granted { self?.start() } else { self?.status = "Microphone permission was denied." }
+          guard let self, self.permissionRequestID == requestID else { return }
+          self.permissionPending = false
+          if granted {
+            if !self.onDemandEnabled || !self.demandConsumers.isEmpty { self.start() }
+          } else {
+            self.status = "Microphone permission was denied."
+          }
         }
       }
     default:
@@ -255,6 +349,8 @@ final class MicMuxModel: ObservableObject {
   }
 
   private func start() {
+    guard !running else { return }
+    guard !onDemandEnabled || !demandConsumers.isEmpty else { return }
     let enabledSources = sources.filter { $0.enabled && $0.id != selectedOutputID }
     let enabledRemoteSources = remoteSources.filter(\.enabled)
     guard !enabledSources.isEmpty || !enabledRemoteSources.isEmpty else {
@@ -288,9 +384,7 @@ final class MicMuxModel: ObservableObject {
 
   private func restartIfRunning() {
     guard running else { return }
-    coordinator?.stop()
-    coordinator = nil
-    running = false
+    stop()
     start()
   }
 
@@ -364,7 +458,7 @@ final class MicMuxModel: ObservableObject {
       }
       return SourcePresentation(
         device: device,
-        enabled: !device.isVirtual,
+        enabled: !device.isVirtual && device.transportType != kAudioDeviceTransportTypeAggregate,
         channel: 0
       )
     }
@@ -403,14 +497,26 @@ final class MicMuxModel: ObservableObject {
     preferences.set(monitorVolume, forKey: PreferenceKey.monitorVolume)
   }
 
+  private var captureGraphIdentity: [String] {
+    let inputs = sources.filter { $0.enabled }.map {
+      "input:\($0.id):\($0.device.objectID):\($0.channel)"
+    }
+    let routes = [selectedOutputID, echoReferenceID, monitorOutputID].map { uid in
+      "route:\(uid):\(outputs.first { $0.id == uid }?.objectID ?? sources.first { $0.id == uid }?.device.objectID ?? 0)"
+    }
+    return inputs.sorted() + routes
+  }
+
   private func hardwareChanged() {
-    let wasRunning = running
-    if wasRunning { stop() }
+    let before = captureGraphIdentity
     refreshDevices()
-    if wasRunning { start() }
+    // Ignore temporary, disabled HAL aggregates when the live graph is unchanged.
+    if running && before != captureGraphIdentity { restartIfRunning() }
+    if onDemandEnabled { reconcileDemand() }
   }
 
   deinit {
+    demandMonitor.stop()
     monitor.stop()
     coordinator?.stop()
     remoteServer.stop()

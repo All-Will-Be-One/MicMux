@@ -26,7 +26,10 @@ struct MicMuxApp: App {
     .commands {
       CommandGroup(after: .appInfo) {
         Divider()
-        Button(model.running ? "Stop MicMux" : "Start MicMux") {
+        Button(
+          model.onDemandEnabled
+            ? "Disable on-demand capture" : (model.running ? "Stop MicMux" : "Start MicMux")
+        ) {
           model.toggleRunning()
         }
         .keyboardShortcut(.space, modifiers: [.command])
@@ -50,9 +53,18 @@ private struct MicMuxMenuBarContent: View {
   @Environment(\.openWindow) private var openWindow
 
   var body: some View {
-    Button(model.running ? "Stop MicMux" : "Start MicMux") {
+    Button(
+      model.onDemandEnabled
+        ? "Disable on-demand capture" : (model.running ? "Stop MicMux" : "Start MicMux")
+    ) {
       model.toggleRunning()
     }
+
+    Toggle(
+      "On-demand capture",
+      isOn: Binding(
+        get: { model.onDemandEnabled }, set: { model.setOnDemandEnabled($0) }))
+    Text(model.demandStatus)
 
     Menu("Selection: \(model.selectionMode.rawValue)") {
       ForEach(SelectionMode.allCases) { mode in
