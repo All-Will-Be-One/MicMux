@@ -22,6 +22,8 @@ struct MicMuxApp: App {
     Window("MicMux", id: "main") {
       ContentView(model: model)
     }
+    // Login launches stay in the menu bar; Show MicMux opens this same window.
+    .defaultLaunchBehavior(.suppressed)
     .defaultSize(width: 900, height: 680)
     .commands {
       CommandGroup(after: .appInfo) {

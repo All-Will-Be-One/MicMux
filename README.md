@@ -159,3 +159,21 @@ On Command Line Tools-only Macs, run the capture-free demand checks with:
 swiftc -warnings-as-errors Sources/MicMux/AudioDemandMonitor.swift Tests/Standalone/AudioDemandChecks.swift -o /tmp/micmux-demand-checks
 /tmp/micmux-demand-checks
 ```
+
+## Menu-bar operation and login startup
+
+The macOS app runs in the menu bar without a Dock icon. Launching it does not
+open the main window; choose **Show MicMux** from its microphone menu-bar icon
+to open the controls. Closing that window leaves MicMux running. Use **Quit
+MicMux** in the same menu to exit. This does not change capture preferences,
+input/output routing, or the system default audio devices.
+
+To start it when you sign in, install the app at `/Applications/MicMux.app`,
+then add it once in **System Settings → General → Login Items & Extensions →
+Open at Login**. If MicMux is already listed, reuse that entry after updating
+the app at the same path. Do not also add a LaunchAgent or another login helper.
+Remove that entry to disable login startup.
+
+A locally rebuilt/ad-hoc-signed update may require macOS microphone permission
+to be granted again. Login startup does not grant permissions or enable capture;
+the existing opt-in on-demand preference remains in effect.
